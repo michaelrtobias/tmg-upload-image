@@ -1,0 +1,29 @@
+{
+  "name": "tmg-upload-image",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zipper": "zip -r9 build/uploadImage.zip .",
+    "push-to-s3": "aws s3 sync --profile TMG_michael --acl private build/ s3://mundo-group-lambda-code/lambdas",
+    "push-to-s3-codebuild": "aws s3 sync --acl private build/ s3://mundo-group-lambda-code/lambdas",
+    "deploy": "npm run zipper && npm run push-to-s3",
+    "update-lambda": "aws --region us-east-1 lambda update-function-code --function-name upload-image --s3-bucket mundo-group-lambda-code --s3-key lambdas/uploadImage.zip --publish",
+    "update-lambda-local": "aws --region us-east-1 lambda update-function-code --profile TMG_michael --function-name upload-image --s3-bucket mundo-group-lambda-code --s3-key lambdas/uploadImage.zip --publish",
+    "local-deploy": "npm run deploy && npm run update-lambda-local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelrtobias/tmg-upload-image.git"
+  },
+  "author": "michael tobias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelrtobias/tmg-upload-image/issues"
+  },
+  "homepage": "https://github.com/michaelrtobias/tmg-upload-image#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1073.0"
+  }
+}
