@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+<<<<<<< HEAD
 exports.handler = async (event, context) => {
   try {
     console.log("event", event);
@@ -21,4 +22,16 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(e.message),
     };
   }
+=======
+exports.handler = function ({ args: data }) {
+  let results = data.contactInfo;
+  try {
+    console.log(results.first_name, "Jordan");
+    console.log("results product type:", results.type);
+    console.log(23);
+  } catch (e) {
+    throw e;
+  }
+  return results;
+>>>>>>> 7831edb40110380ea84cd6f6894e5d8da374856f
 };
