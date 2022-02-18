@@ -3,12 +3,15 @@ const AWS = require("aws-sdk");
 
 module.exports = async function (body) {
   console.log("upload body:", body);
-  const S3_Bucket = process.env.BUCKET;
+  const Bucket = process.env.BUCKET;
   const s3 = new AWS.S3();
   const fileName = body.fileName;
+  console.log("fileName:", fileName);
   const fileType = body.fileType;
+  console.log("fileType:", fileType);
+
   const s3Params = {
-    Bucket: S3_Bucket,
+    Bucket: Bucket,
     Key: fileName,
     Expires: 500,
     ContentType: fileType,
@@ -19,15 +22,12 @@ module.exports = async function (body) {
     const imageURL = await s3.getSignedUrl("putObject", s3Params);
     const result = {
       signedRequest: imageURL,
-      url: `https://${S3_Bucket}.s3.amazonaws.com/${fileName}`,
+      url: `https://${Bucket}.s3.amazonaws.com/${fileName}`,
     };
     console.log(result);
     return result;
   } catch (e) {
     console.log(e.message);
-    return {
-      statusCode: 500,
-      body: JSON.stringify(e.message),
-    };
+    throw e;
   }
 };

@@ -1,6 +1,7 @@
 const uploadImage = require("./uploadImage.js");
 exports.handler = async (event) => {
-  const { body } = event;
+  let { body } = event;
+  body = JSON.parse(body);
   try {
     console.log("event", event);
     const results = await uploadImage(body);
@@ -18,7 +19,7 @@ exports.handler = async (event) => {
     console.log("response:", response);
     return response;
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     return {
       statusCode: 500,
       body: JSON.stringify(e.message),
