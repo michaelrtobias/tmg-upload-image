@@ -3,9 +3,7 @@ exports.handler = async (event) => {
   let { body } = event;
   body = JSON.parse(body);
   try {
-    console.log("event", event);
     const results = await uploadImage(body);
-
     let response = {
       statusCode: 200,
       headers: {
