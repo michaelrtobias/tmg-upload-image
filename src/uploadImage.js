@@ -24,7 +24,7 @@ module.exports = async function (body) {
       signedRequest: imageURL,
       url: `https://${Bucket}.s3.amazonaws.com/${fileName}`,
     };
-    console.log(result);
+    console.log("result:", result);
     return result;
   } catch (e) {
     console.log(e.message);
