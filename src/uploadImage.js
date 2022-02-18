@@ -2,6 +2,7 @@ const dotenv = require("dotenv").config();
 const AWS = require("aws-sdk");
 
 module.exports = async function (body) {
+  console.log("upload body:", body);
   const S3_Bucket = process.env.BUCKET;
   const s3 = new AWS.S3();
   const fileName = body.fileName;
@@ -13,7 +14,7 @@ module.exports = async function (body) {
     ContentType: fileType,
     ACL: "public-read",
   };
-
+  console.log("s3 params:", s3Params);
   try {
     const imageURL = await s3.getSignedUrl("putObject", s3Params);
     const result = {
