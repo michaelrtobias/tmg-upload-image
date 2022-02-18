@@ -1,7 +1,9 @@
-const AWS = require("aws-sdk");
-exports.handler = async (event, context) => {
+const uploadImage = require("./uploadImage.js");
+exports.handler = async (event) => {
+  const { body } = event;
   try {
     console.log("event", event);
+    const results = await uploadImage(body);
     let response = {
       statusCode: 200,
       headers: {
@@ -10,7 +12,7 @@ exports.handler = async (event, context) => {
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
       },
-      body: event.body,
+      body: body,
     };
     console.log("response:", response);
     return response;
