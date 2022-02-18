@@ -4,6 +4,7 @@ exports.handler = async (event) => {
   try {
     console.log("event", event);
     const results = await uploadImage(body);
+
     let response = {
       statusCode: 200,
       headers: {
@@ -12,7 +13,7 @@ exports.handler = async (event) => {
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
       },
-      body: body,
+      body: JSON.stringify(results),
     };
     console.log("response:", response);
     return response;
