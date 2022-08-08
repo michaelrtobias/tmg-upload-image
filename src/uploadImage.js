@@ -2,14 +2,13 @@ const dotenv = require("dotenv").config();
 const AWS = require("aws-sdk");
 
 module.exports = async function (body) {
+  const { fileName, fileType, pathKey } = body;
   const Bucket = process.env.BUCKET;
   const s3 = new AWS.S3();
-  const fileName = body.fileName;
-  const fileType = body.fileType;
 
   const s3Params = {
     Bucket: Bucket,
-    Key: fileName,
+    Key: `${pathKey}/${fileName}`,
     Expires: 500,
     ContentType: fileType,
     ACL: "public-read",
@@ -18,7 +17,7 @@ module.exports = async function (body) {
     const imageURL = await s3.getSignedUrl("putObject", s3Params);
     const result = {
       signedRequest: imageURL,
-      url: `https://${Bucket}.s3.amazonaws.com/${fileName}`,
+      url: `https://${Bucket}.s3.amazonaws.com/${pathKey}/${fileName}`,
     };
     return result;
   } catch (e) {
