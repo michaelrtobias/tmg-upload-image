@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/michaelrtobias/tmg-upload-image#readme",
   "dependencies": {
-    "aws-sdk": "^2.1073.0",
-    "dotenv": "^16.0.0"
+    "aws-sdk": "^2.1190.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1"
   }
 }

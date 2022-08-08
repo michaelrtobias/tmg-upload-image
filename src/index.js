@@ -2,7 +2,6 @@ const uploadImage = require("./uploadImage.js");
 exports.handler = async (event) => {
   let { body } = event;
   body = JSON.parse(body);
-  console.log("body", body);
   try {
     const results = await uploadImage(body);
     let response = {
